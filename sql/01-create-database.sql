@@ -41,3 +41,21 @@ create table aluno (
         on delete set null
         on update cascade
 ) engine = InnoDB;
+
+create table aluno_plano (
+    id int auto_increment primary key, 
+    aluno_id int not null, 
+    plano_id int not null,
+    data_inicio date not null,
+    data_fim date null,
+
+    constraint fk_alunoplano_aluno
+        foreign key (aluno_id) references aluno(id)
+        on delete cascade
+        on update cascade,
+
+    constraint fk_alunoplano_plano
+        foreign key (plano_id) references plano(id)
+        on delete restrict
+        on update cascade
+) engine = InnoDB;
