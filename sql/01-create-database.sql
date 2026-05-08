@@ -23,3 +23,21 @@ create table personal (
     especialidade enum('Musculação', 'Crossfit', 'Funcional', 'Pilates', 'Natação') not null,
     ativo boolean not null default true
 ) engine InnoDB;
+
+create table aluno (
+    id int auto_increment primary key,
+    nome varchar(100) not null,
+    cpf varchar(11) not null unique,
+    email varchar(100) not null unique,
+    telefone varchar(20) null,
+    data_nascimento date not null,
+    sexo enum('M', 'F') not null,
+    data_matricula datetime not null default current_timestamp,
+    ativo boolean not null default true,
+    personal_id int null,
+
+    constraint fk_aluno_personal
+        foreign key (personal_id) references personal(id)
+        on delete set null
+        on update cascade
+) engine = InnoDB;
