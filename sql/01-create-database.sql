@@ -59,3 +59,23 @@ create table aluno_plano (
         on delete restrict
         on update cascade
 ) engine = InnoDB;
+
+create table pagamento (
+    id int auto_increment primary key,
+    aluno_id int not null,
+    plano_id int not null,
+    valor decimal(10,2) not null check (valor > 0),
+    data_pagamento datetime not null,
+    forma_pagamento enum('dinheiro', 'cartao_debito', 'cartao_credito', 'pix', 'boleto') not null,
+    status enum('pago', 'pendente', 'atrasado', 'estornado') not null default 'pendente',
+
+    constraint fk_pagamento_aluno
+        foreign key (aluno_id) references aluno(id)
+        on delete restrict
+        on update cascade,
+
+    constraint fk_pagamento_plano
+        foreign key (plano_id) references plano(id)
+        on delete restrict
+        on update cascade
+) engine = InnoDB;
