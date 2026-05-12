@@ -1,7 +1,7 @@
 DROP DATABASE IF EXISTS academia;
 create database academia
 	character set utf8mb4
-    collate utf8mb4_unicode_ci
+    collate utf8mb4_unicode_ci;
     
 USE academia;
 
@@ -77,5 +77,25 @@ create table pagamento (
     constraint fk_pagamento_plano
         foreign key (plano_id) references plano(id)
         on delete restrict
+        on update cascade
+) engine = InnoDB;
+
+create table ficha_treino (
+    id int auto_increment primary key,
+    aluno_id int not null,
+    personal_id int null,
+    tipo_treino enum('Musculação', 'Crossfit', 'Funcional', 'Pilates', 'Natação') not null,
+    data_inicio date not null,
+    data_fim date null,
+    observacoes text null,
+
+    constraint fk_ficha_aluno
+        foreign key (aluno_id) references aluno(id)
+        on delete cascade
+        on update cascade,
+    
+    constraint fk_ficha_personal
+        foreign key (personal_id) references personal(id)
+        on delete set null
         on update cascade
 ) engine = InnoDB;
