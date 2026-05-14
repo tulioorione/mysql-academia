@@ -24,7 +24,7 @@ insert into personal (nome, cpf, email, telefone, data_contratacao, salario, esp
 
 
 -- IDs de personal: 1=Luciano, 2=Maria, 3=Marcos
-INSERT INTO aluno (nome, cpf, email, telefone, data_nascimento, sexo, data_matricula, ativo, personal_id) VALUES
+insert into aluno (nome, cpf, email, telefone, data_nascimento, sexo, data_matricula, ativo, personal_id) values
     ('Carlos Eduardo Santos', '10000000001', 'carlos.santos@email.com', '31987651001', '1998-01-01', 'M', '2025-01-15 10:00:00', TRUE, 1),
     ('Mariana Silva Costa',   '10000000002', 'mariana.costa@email.com', '31987651002', '1992-01-01', 'F', '2025-02-15 14:30:00', TRUE, 2),
     ('Roberto Costa Lima',    '10000000003', 'roberto.lima@email.com',  '31987651003', '1981-01-01', 'M', '2025-03-15 09:15:00', TRUE, 3),
@@ -37,7 +37,7 @@ INSERT INTO aluno (nome, cpf, email, telefone, data_nascimento, sexo, data_matri
     ('Amanda Rocha Dias',     '10000000010', 'amanda.rocha@email.com',  '31987651010', '2007-01-01', 'F', '2025-10-15 12:00:00', FALSE, 3);
 
 
-INSERT INTO aluno_plano (aluno_id, plano_id, data_inicio, data_fim) VALUES
+insert into aluno_plano (aluno_id, plano_id, data_inicio, data_fim) values
     (1,  3, '2025-01-15', NULL),       -- Carlos, Anual
     (3,  1, '2025-03-15', NULL),       -- Roberto, Mensal
     (6,  1, '2025-06-15', NULL),       -- Bruna, Mensal
@@ -59,7 +59,7 @@ INSERT INTO aluno_plano (aluno_id, plano_id, data_inicio, data_fim) VALUES
     (10, 1, '2025-10-15', '2026-01-15');  -- Amanda, Mensal (cancelado)
 
 
-INSERT INTO pagamento (aluno_id, plano_id, valor, data_pagamento, forma_pagamento, status) VALUES
+insert into pagamento (aluno_id, plano_id, valor, data_pagamento, forma_pagamento, status) values
     -- Carlos (id 1) — Anual, 2 pagamentos
     (1, 3, 1170.00, '2025-01-15 14:20:00', 'cartao_credito', 'pago'),
     (1, 3, 1170.00, '2026-01-14 09:45:00', 'pix',            'pago'),
@@ -155,3 +155,45 @@ INSERT INTO pagamento (aluno_id, plano_id, valor, data_pagamento, forma_pagament
     (10, 1, 130.00, '2025-11-15 13:20:00', 'cartao_debito',  'pago'),
     (10, 1, 130.00, '2025-12-15 14:30:00', 'pix',            'pago'),
     (10, 1, 130.00, '2026-01-15 15:45:00', 'pix',            'pago');
+
+insert into ficha_treino (aluno_id, personal_id, tipo_treino, data_inicio, data_fim, observacoes) values
+    (1, 1, 'Musculação', '2025-01-20', '2025-04-30',
+        'Treino inicial focado em adaptação. Ênfase em técnica antes de carga.'),
+    (1, 1, 'Musculação', '2025-05-01', NULL,
+        'Progressão para hipertrofia. Divisão ABC, 4x na semana.'),
+    
+    -- Mariana (2) — histórico: ficha 1 finalizada + ficha 2 vigente
+    (2, 2, 'Crossfit',   '2025-02-20', '2025-05-31',
+        'Adaptação aos movimentos básicos do CrossFit. Foco em mobilidade.'),
+    (2, 2, 'Crossfit',   '2025-06-01', NULL,
+        'WODs de intensidade moderada. Trabalhar resistência muscular.'),
+    
+    -- Roberto (3) — histórico: ficha 1 finalizada + ficha 2 vigente
+    (3, 3, 'Funcional',  '2025-03-20', '2025-06-30',
+        'Avaliação física inicial. Aluno com perfil sedentário. Atenção a lombar.'),
+    (3, 3, 'Funcional',  '2025-07-01', NULL,
+        'Treino funcional com progressão de carga. Sem dores reportadas.'),
+    
+    -- Fernanda (4) — apenas ficha vigente
+    (4, 1, 'Musculação', '2025-04-20', NULL,
+        'Foco em membros inferiores. Trabalhar glúteos e posterior de coxa.'),
+    
+    -- João (5) — apenas ficha vigente
+    (5, 2, 'Crossfit',   '2025-05-20', NULL,
+        'Atleta intermediário. Treinos de alta intensidade 3x na semana.'),
+    
+    -- Bruna (6) — ficha vigente SEM PERSONAL (ficha padrão)
+    (6, NULL, 'Musculação', '2025-06-20', NULL,
+        'Ficha padrão da academia. Aluna treina sem acompanhamento.'),
+    
+    -- Ricardo (7) — apenas ficha vigente
+    (7, 1, 'Musculação', '2025-07-20', NULL,
+        'Aluno 52 anos, sem histórico de lesão. Treino moderado, atenção a articulações.'),
+    
+    -- Patrícia (8) — ficha vigente SEM PERSONAL (ficha padrão)
+    (8, NULL, 'Musculação', '2025-08-20', NULL,
+        'Ficha padrão. Foco em condicionamento geral.'),
+    
+    -- Lucas (9) — INATIVO, ficha finalizada quando cancelou
+    (9, NULL, 'Musculação', '2025-09-20', '2025-12-15',
+        'Ficha padrão. Aluno cancelou matrícula em dezembro.');
