@@ -30,29 +30,29 @@ insert into aluno (nome, cpf, email, telefone, data_nascimento, sexo, data_matri
     ('Roberto Costa Lima',    '10000000003', 'roberto.lima@email.com',  '31987651003', '1981-01-01', 'M', '2025-03-15 09:15:00', TRUE, 3),
     ('Fernanda Lima Souza',   '10000000004', 'fernanda.souza@email.com','31987651004', '2004-01-01', 'F', '2025-04-15 16:45:00', TRUE, 1),
     ('João Pedro Almeida',    '10000000005', 'joao.almeida@email.com',  '31987651005', '1996-01-01', 'M', '2025-05-15 11:00:00', TRUE, 2),
-    ('Bruna Oliveira Pinto',  '10000000006', 'bruna.pinto@email.com',   '31987651006', '2000-01-01', 'F', '2025-06-15 18:20:00', TRUE, NULL),
+    ('Bruna Oliveira Pinto',  '10000000006', 'bruna.pinto@email.com',   '31987651006', '2000-01-01', 'F', '2025-06-15 18:20:00', TRUE, null),
     ('Ricardo Alves Moreira', '10000000007', 'ricardo.moreira@email.com','31987651007','1974-01-01', 'M', '2025-07-15 08:00:00', TRUE, 1),
-    ('Patrícia Gomes Ferreira','10000000008','patricia.gomes@email.com','31987651008', '1988-01-01', 'F', '2025-08-15 15:00:00', TRUE, NULL),
-    ('Lucas Mendes Carvalho', '10000000009', 'lucas.mendes@email.com',  '31987651009', '1985-01-01', 'M', '2025-09-15 19:30:00', FALSE, NULL),
+    ('Patrícia Gomes Ferreira','10000000008','patricia.gomes@email.com','31987651008', '1988-01-01', 'F', '2025-08-15 15:00:00', TRUE, null),
+    ('Lucas Mendes Carvalho', '10000000009', 'lucas.mendes@email.com',  '31987651009', '1985-01-01', 'M', '2025-09-15 19:30:00', FALSE, null),
     ('Amanda Rocha Dias',     '10000000010', 'amanda.rocha@email.com',  '31987651010', '2007-01-01', 'F', '2025-10-15 12:00:00', FALSE, 3);
 
 
 insert into aluno_plano (aluno_id, plano_id, data_inicio, data_fim) values
-    (1,  3, '2025-01-15', NULL),       -- Carlos, Anual
-    (3,  1, '2025-03-15', NULL),       -- Roberto, Mensal
-    (6,  1, '2025-06-15', NULL),       -- Bruna, Mensal
-    (7,  2, '2025-07-15', NULL),       -- Ricardo, Semestral
-    (8,  1, '2025-08-15', NULL),       -- Patrícia, Mensal
+    (1,  3, '2025-01-15', null),       -- Carlos, Anual
+    (3,  1, '2025-03-15', null),       -- Roberto, Mensal
+    (6,  1, '2025-06-15', null),       -- Bruna, Mensal
+    (7,  2, '2025-07-15', null),       -- Ricardo, Semestral
+    (8,  1, '2025-08-15', null),       -- Patrícia, Mensal
     
     -- Perfil B: histórico de troca (2 linhas por aluno)
     (2,  1, '2025-02-15', '2025-07-31'),  -- Mariana, Mensal (finalizado)
-    (2,  2, '2025-08-01', NULL),          -- Mariana, Semestral (vigente)
+    (2,  2, '2025-08-01', null),          -- Mariana, Semestral (vigente)
     
     (4,  1, '2025-04-15', '2025-09-30'),  -- Fernanda, Mensal (finalizado)
-    (4,  3, '2025-10-01', NULL),          -- Fernanda, Anual (vigente)
+    (4,  3, '2025-10-01', null),          -- Fernanda, Anual (vigente)
     
     (5,  1, '2025-05-15', '2025-10-31'),  -- João, Mensal (finalizado)
-    (5,  1, '2025-11-01', NULL),          -- João, Mensal (renovou)
+    (5,  1, '2025-11-01', null),          -- João, Mensal (renovou)
     
     -- Perfil C: alunos inativos com plano cancelado
     (9,  1, '2025-09-15', '2025-12-15'),  -- Lucas, Mensal (cancelado)
@@ -159,41 +159,41 @@ insert into pagamento (aluno_id, plano_id, valor, data_pagamento, forma_pagament
 insert into ficha_treino (aluno_id, personal_id, tipo_treino, data_inicio, data_fim, observacoes) values
     (1, 1, 'Musculação', '2025-01-20', '2025-04-30',
         'Treino inicial focado em adaptação. Ênfase em técnica antes de carga.'),
-    (1, 1, 'Musculação', '2025-05-01', NULL,
+    (1, 1, 'Musculação', '2025-05-01', null,
         'Progressão para hipertrofia. Divisão ABC, 4x na semana.'),
     
     -- Mariana (2) — histórico: ficha 1 finalizada + ficha 2 vigente
     (2, 2, 'Crossfit',   '2025-02-20', '2025-05-31',
         'Adaptação aos movimentos básicos do CrossFit. Foco em mobilidade.'),
-    (2, 2, 'Crossfit',   '2025-06-01', NULL,
+    (2, 2, 'Crossfit',   '2025-06-01', null,
         'WODs de intensidade moderada. Trabalhar resistência muscular.'),
     
     -- Roberto (3) — histórico: ficha 1 finalizada + ficha 2 vigente
     (3, 3, 'Funcional',  '2025-03-20', '2025-06-30',
         'Avaliação física inicial. Aluno com perfil sedentário. Atenção a lombar.'),
-    (3, 3, 'Funcional',  '2025-07-01', NULL,
+    (3, 3, 'Funcional',  '2025-07-01', null,
         'Treino funcional com progressão de carga. Sem dores reportadas.'),
     
     -- Fernanda (4) — apenas ficha vigente
-    (4, 1, 'Musculação', '2025-04-20', NULL,
+    (4, 1, 'Musculação', '2025-04-20', null,
         'Foco em membros inferiores. Trabalhar glúteos e posterior de coxa.'),
     
     -- João (5) — apenas ficha vigente
-    (5, 2, 'Crossfit',   '2025-05-20', NULL,
+    (5, 2, 'Crossfit',   '2025-05-20', null,
         'Atleta intermediário. Treinos de alta intensidade 3x na semana.'),
     
     -- Bruna (6) — ficha vigente SEM PERSONAL (ficha padrão)
-    (6, NULL, 'Musculação', '2025-06-20', NULL,
+    (6, null, 'Musculação', '2025-06-20', null,
         'Ficha padrão da academia. Aluna treina sem acompanhamento.'),
     
     -- Ricardo (7) — apenas ficha vigente
-    (7, 1, 'Musculação', '2025-07-20', NULL,
+    (7, 1, 'Musculação', '2025-07-20', null,
         'Aluno 52 anos, sem histórico de lesão. Treino moderado, atenção a articulações.'),
     
     -- Patrícia (8) — ficha vigente SEM PERSONAL (ficha padrão)
-    (8, NULL, 'Musculação', '2025-08-20', NULL,
+    (8, null, 'Musculação', '2025-08-20', null,
         'Ficha padrão. Foco em condicionamento geral.'),
     
     -- Lucas (9) — INATIVO, ficha finalizada quando cancelou
-    (9, NULL, 'Musculação', '2025-09-20', '2025-12-15',
+    (9, null, 'Musculação', '2025-09-20', '2025-12-15',
         'Ficha padrão. Aluno cancelou matrícula em dezembro.');
