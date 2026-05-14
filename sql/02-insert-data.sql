@@ -32,3 +32,24 @@ INSERT INTO aluno (nome, cpf, email, telefone, data_nascimento, sexo, data_matri
     ('Patrícia Gomes Ferreira','10000000008','patricia.gomes@email.com','31987651008', '1988-01-01', 'F', '2025-08-15 15:00:00', TRUE, NULL),
     ('Lucas Mendes Carvalho', '10000000009', 'lucas.mendes@email.com',  '31987651009', '1985-01-01', 'M', '2025-09-15 19:30:00', FALSE, NULL),
     ('Amanda Rocha Dias',     '10000000010', 'amanda.rocha@email.com',  '31987651010', '2007-01-01', 'F', '2025-10-15 12:00:00', FALSE, 3);
+
+INSERT INTO aluno_plano (aluno_id, plano_id, data_inicio, data_fim) VALUES
+    (1,  3, '2025-01-15', NULL),       -- Carlos, Anual
+    (3,  1, '2025-03-15', NULL),       -- Roberto, Mensal
+    (6,  1, '2025-06-15', NULL),       -- Bruna, Mensal
+    (7,  2, '2025-07-15', NULL),       -- Ricardo, Semestral
+    (8,  1, '2025-08-15', NULL),       -- Patrícia, Mensal
+    
+    -- Perfil B: histórico de troca (2 linhas por aluno)
+    (2,  1, '2025-02-15', '2025-07-31'),  -- Mariana, Mensal (finalizado)
+    (2,  2, '2025-08-01', NULL),          -- Mariana, Semestral (vigente)
+    
+    (4,  1, '2025-04-15', '2025-09-30'),  -- Fernanda, Mensal (finalizado)
+    (4,  3, '2025-10-01', NULL),          -- Fernanda, Anual (vigente)
+    
+    (5,  1, '2025-05-15', '2025-10-31'),  -- João, Mensal (finalizado)
+    (5,  1, '2025-11-01', NULL),          -- João, Mensal (renovou)
+    
+    -- Perfil C: alunos inativos com plano cancelado
+    (9,  1, '2025-09-15', '2025-12-15'),  -- Lucas, Mensal (cancelado)
+    (10, 1, '2025-10-15', '2026-01-15');  -- Amanda, Mensal (cancelado)
