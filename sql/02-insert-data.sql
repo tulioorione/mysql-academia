@@ -10,15 +10,18 @@ truncate table personal;
 truncate table plano;
 set foreign_key_checks = 1; -- Reativa a verificação
 
+
 insert into plano (nome, valor, duracao_meses) values
     ('Mensal', 130.00, 1),
     ('Semestral', 663.00, 6),
     ('Anual', 1170.00, 12);
 
+
 insert into personal (nome, cpf, email, telefone, data_contratacao, salario, especialidade, ativo) values
     ('Luciano Souza', '15753436750', 'luciano@academia.com', '33968438125', '2025-09-05', 1899.00, 'Musculação', TRUE),
     ('Maria Oliveira', '35795985380', 'maria@academia.com', '33934543145', '2025-01-07', 2102.00, 'Crossfit', TRUE),
     ('Marcos Pereira', '23173215770', 'marcos@academia.com', '33965273015', '2025-09-06', 1830.00, 'Funcional', FALSE);
+
 
 -- IDs de personal: 1=Luciano, 2=Maria, 3=Marcos
 INSERT INTO aluno (nome, cpf, email, telefone, data_nascimento, sexo, data_matricula, ativo, personal_id) VALUES
@@ -32,6 +35,7 @@ INSERT INTO aluno (nome, cpf, email, telefone, data_nascimento, sexo, data_matri
     ('Patrícia Gomes Ferreira','10000000008','patricia.gomes@email.com','31987651008', '1988-01-01', 'F', '2025-08-15 15:00:00', TRUE, NULL),
     ('Lucas Mendes Carvalho', '10000000009', 'lucas.mendes@email.com',  '31987651009', '1985-01-01', 'M', '2025-09-15 19:30:00', FALSE, NULL),
     ('Amanda Rocha Dias',     '10000000010', 'amanda.rocha@email.com',  '31987651010', '2007-01-01', 'F', '2025-10-15 12:00:00', FALSE, 3);
+
 
 INSERT INTO aluno_plano (aluno_id, plano_id, data_inicio, data_fim) VALUES
     (1,  3, '2025-01-15', NULL),       -- Carlos, Anual
@@ -53,3 +57,101 @@ INSERT INTO aluno_plano (aluno_id, plano_id, data_inicio, data_fim) VALUES
     -- Perfil C: alunos inativos com plano cancelado
     (9,  1, '2025-09-15', '2025-12-15'),  -- Lucas, Mensal (cancelado)
     (10, 1, '2025-10-15', '2026-01-15');  -- Amanda, Mensal (cancelado)
+
+
+INSERT INTO pagamento (aluno_id, plano_id, valor, data_pagamento, forma_pagamento, status) VALUES
+    -- Carlos (id 1) — Anual, 2 pagamentos
+    (1, 3, 1170.00, '2025-01-15 14:20:00', 'cartao_credito', 'pago'),
+    (1, 3, 1170.00, '2026-01-14 09:45:00', 'pix',            'pago'),
+
+    -- Mariana (id 2) — Mensal (fev–jul/2025) + Semestral (ago/2025 + fev/2026)
+    (2, 1,  130.00, '2025-02-15 18:00:00', 'pix',            'pago'),
+    (2, 1,  130.00, '2025-03-16 10:30:00', 'pix',            'pago'),
+    (2, 1,  130.00, '2025-04-15 11:15:00', 'cartao_debito',  'pago'),
+    (2, 1,  130.00, '2025-05-15 19:40:00', 'pix',            'pago'),
+    (2, 1,  130.00, '2025-06-14 08:50:00', 'dinheiro',       'pago'),
+    (2, 1,  130.00, '2025-07-15 17:25:00', 'pix',            'pago'),
+    (2, 2,  663.00, '2025-08-01 14:00:00', 'cartao_credito', 'pago'),
+    (2, 2,  663.00, '2026-02-02 16:30:00', 'pix',            'pago'),
+
+    -- Roberto (id 3) — Mensal, 14 pagos + 1 ATRASADO (mai/2026)
+    (3, 1,  130.00, '2025-03-15 09:00:00', 'dinheiro',       'pago'),
+    (3, 1,  130.00, '2025-04-15 10:00:00', 'dinheiro',       'pago'),
+    (3, 1,  130.00, '2025-05-16 11:00:00', 'dinheiro',       'pago'),
+    (3, 1,  130.00, '2025-06-15 09:30:00', 'pix',            'pago'),
+    (3, 1,  130.00, '2025-07-14 14:20:00', 'pix',            'pago'),
+    (3, 1,  130.00, '2025-08-15 15:10:00', 'pix',            'pago'),
+    (3, 1,  130.00, '2025-09-15 16:40:00', 'cartao_debito',  'pago'),
+    (3, 1,  130.00, '2025-10-15 08:55:00', 'pix',            'pago'),
+    (3, 1,  130.00, '2025-11-15 12:00:00', 'pix',            'pago'),
+    (3, 1,  130.00, '2025-12-15 13:30:00', 'cartao_credito', 'pago'),
+    (3, 1,  130.00, '2026-01-15 10:25:00', 'pix',            'pago'),
+    (3, 1,  130.00, '2026-02-16 17:00:00', 'pix',            'pago'),
+    (3, 1,  130.00, '2026-03-15 18:30:00', 'cartao_debito',  'pago'),
+    (3, 1,  130.00, '2026-04-15 09:10:00', 'pix',            'pago'),
+    (3, 1,  130.00, '2026-05-15 00:00:00', 'boleto',         'atrasado'),
+
+    -- Fernanda (id 4) — Mensal (abr–set/2025) + Anual (out/2025)
+    (4, 1,  130.00, '2025-04-15 19:00:00', 'pix',            'pago'),
+    (4, 1,  130.00, '2025-05-14 18:30:00', 'pix',            'pago'),
+    (4, 1,  130.00, '2025-06-15 20:15:00', 'cartao_credito', 'pago'),
+    (4, 1,  130.00, '2025-07-15 11:00:00', 'pix',            'pago'),
+    (4, 1,  130.00, '2025-08-15 09:45:00', 'cartao_debito',  'pago'),
+    (4, 1,  130.00, '2025-09-15 14:30:00', 'pix',            'pago'),
+    (4, 3, 1170.00, '2025-10-01 10:00:00', 'cartao_credito', 'pago'),
+
+    -- João (id 5) — Mensal renovado, 13 pagamentos
+    (5, 1,  130.00, '2025-05-15 11:00:00', 'cartao_debito',  'pago'),
+    (5, 1,  130.00, '2025-06-15 12:30:00', 'cartao_debito',  'pago'),
+    (5, 1,  130.00, '2025-07-15 09:00:00', 'pix',            'pago'),
+    (5, 1,  130.00, '2025-08-16 10:45:00', 'pix',            'pago'),
+    (5, 1,  130.00, '2025-09-15 16:00:00', 'pix',            'pago'),
+    (5, 1,  130.00, '2025-10-15 17:20:00', 'dinheiro',       'pago'),
+    (5, 1,  130.00, '2025-11-01 13:10:00', 'pix',            'pago'),
+    (5, 1,  130.00, '2025-12-01 14:25:00', 'pix',            'pago'),
+    (5, 1,  130.00, '2026-01-02 10:00:00', 'pix',            'pago'),
+    (5, 1,  130.00, '2026-02-01 11:30:00', 'pix',            'pago'),
+    (5, 1,  130.00, '2026-03-01 12:15:00', 'cartao_credito', 'pago'),
+    (5, 1,  130.00, '2026-04-01 08:40:00', 'pix',            'pago'),
+    (5, 1,  130.00, '2026-05-02 09:55:00', 'pix',            'pago'),
+
+    -- Bruna (id 6) — Mensal, 12 pagamentos; 1 ESTORNADO antigo
+    (6, 1,  130.00, '2025-06-15 15:00:00', 'pix',            'pago'),
+    (6, 1,  130.00, '2025-07-15 16:30:00', 'pix',            'estornado'),
+    (6, 1,  130.00, '2025-08-14 17:00:00', 'pix',            'pago'),
+    (6, 1,  130.00, '2025-09-15 18:00:00', 'cartao_debito',  'pago'),
+    (6, 1,  130.00, '2025-10-15 19:20:00', 'pix',            'pago'),
+    (6, 1,  130.00, '2025-11-15 14:50:00', 'cartao_credito', 'pago'),
+    (6, 1,  130.00, '2025-12-15 10:10:00', 'pix',            'pago'),
+    (6, 1,  130.00, '2026-01-15 11:30:00', 'pix',            'pago'),
+    (6, 1,  130.00, '2026-02-15 12:00:00', 'pix',            'pago'),
+    (6, 1,  130.00, '2026-03-15 13:15:00', 'cartao_debito',  'pago'),
+    (6, 1,  130.00, '2026-04-15 14:40:00', 'pix',            'pago'),
+    (6, 1,  130.00, '2026-05-13 09:20:00', 'pix',            'pago'),
+
+    -- Ricardo (id 7) — Semestral, 2 pagamentos
+    (7, 2,  663.00, '2025-07-15 08:00:00', 'cartao_credito', 'pago'),
+    (7, 2,  663.00, '2026-01-16 09:30:00', 'pix',            'pago'),
+
+    -- Patrícia (id 8) — Mensal, 9 pagos + 1 ATRASADO (mai/2026)
+    (8, 1,  130.00, '2025-08-15 15:00:00', 'dinheiro',       'pago'),
+    (8, 1,  130.00, '2025-09-15 14:30:00', 'pix',            'pago'),
+    (8, 1,  130.00, '2025-10-16 16:20:00', 'pix',            'pago'),
+    (8, 1,  130.00, '2025-11-15 11:00:00', 'pix',            'pago'),
+    (8, 1,  130.00, '2025-12-14 12:45:00', 'cartao_credito', 'pago'),
+    (8, 1,  130.00, '2026-01-15 10:30:00', 'pix',            'pago'),
+    (8, 1,  130.00, '2026-02-15 13:00:00', 'pix',            'pago'),
+    (8, 1,  130.00, '2026-03-15 17:10:00', 'cartao_debito',  'pago'),
+    (8, 1,  130.00, '2026-04-15 18:25:00', 'pix',            'pago'),
+    (8, 1,  130.00, '2026-05-15 00:00:00', 'boleto',         'atrasado'),
+
+    -- Lucas (id 9) — Mensal, 3 pagamentos (cancelou)
+    (9, 1,  130.00, '2025-09-15 19:00:00', 'cartao_debito',  'pago'),
+    (9, 1,  130.00, '2025-10-15 20:30:00', 'pix',            'pago'),
+    (9, 1,  130.00, '2025-11-15 18:45:00', 'pix',            'pago'),
+
+    -- Amanda (id 10) — Mensal, 4 pagamentos (cancelou)
+    (10, 1, 130.00, '2025-10-15 12:00:00', 'pix',            'pago'),
+    (10, 1, 130.00, '2025-11-15 13:20:00', 'cartao_debito',  'pago'),
+    (10, 1, 130.00, '2025-12-15 14:30:00', 'pix',            'pago'),
+    (10, 1, 130.00, '2026-01-15 15:45:00', 'pix',            'pago');
