@@ -83,3 +83,20 @@ JOIN plano pl ON p.plano_id = pl.id
 WHERE p.status = 'pago'
 ORDER BY p.data_pagamento DESC
 LIMIT 10;
+
+-- Query 13: Pagamentos acima da média (subquery escalar)
+select data_pagamento, valor, aluno_id
+from pagamento
+where valor > (select avg(valor) from pagamento where status = 'pago')
+and status = 'pago'
+order by valor desc;
+
+-- Query 14: Alunos com mais pagamentos que a média (subquery aninhada)
+select a.nome as aluno_nome, count(*) as qtde_pagamentos
+from pagamento p
+join aluno a on p.aluno_id = a.id
+group by a.id, a.nome
+having qtde_pagamentos > (select avg(contagem) from (select count(*) as contagem from pagamento group by aluno_id) as subquery)
+order by qtde_pagamentos desc;
+
+
