@@ -53,3 +53,33 @@ where ap.data_fim is null
 group by p.nome
 having COUNT(ap.aluno_id) > 1
 order by qtde_alunos desc;
+
+-- Query 9: Alunos com nome do personal (inclui alunos sem personal)
+select a.nome as aluno_nome, p.nome as personal_nome
+from aluno a
+left join personal p on a.personal_id = p.id
+order by aluno_nome;
+
+-- Query 10: Plano vigente de cada aluno ativo
+select a.nome as aluno_nome, pl.nome as plano_nome, ap.data_inicio
+from aluno a
+join aluno_plano ap on a.id = ap.aluno_id
+join plano pl on ap.plano_id = pl.id
+where ap.data_fim is null
+and a.ativo = true
+order by aluno_nome;
+
+-- Query 11: Alunos sem ficha de treino cadastrada (anti-join)
+select a.nome as aluno_nome
+from aluno a
+left join ficha_treino f on a.id = f.aluno_id
+where f.id is null;
+
+-- Query 12: 10 últimos pagamentos confirmados (com aluno e plano)
+SELECT p.data_pagamento, p.valor, p.status, a.nome AS aluno_nome, pl.nome AS plano_nome
+FROM pagamento p
+JOIN aluno a ON p.aluno_id = a.id
+JOIN plano pl ON p.plano_id = pl.id
+WHERE p.status = 'pago'
+ORDER BY p.data_pagamento DESC
+LIMIT 10;
