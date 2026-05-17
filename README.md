@@ -38,25 +38,6 @@ mysql-academia/
 
 ---
 
-## Como executar
-
-1. Clone o repositório:
-   ```bash
-   git clone https://github.com/tulioorione/mysql-academia.git
-   cd mysql-academia
-   ```
-
-2. Abra o MySQL Workbench e conecte ao seu servidor MySQL local.
-
-3. Execute os scripts **na ordem**:
-   - `sql/01-create-database.sql` — cria o banco `academia` e as 6 tabelas
-   - `sql/02-insert-data.sql` — popula com dados fictícios
-   - `sql/03-queries.sql` — executa as queries de negócio
-
-Os scripts são **idempotentes** — podem ser executados várias vezes sem erro. O `01` começa com `DROP DATABASE IF EXISTS` e o `02` faz `TRUNCATE` antes de inserir.
-
----
-
 ## Modelagem
 
 O banco contém **6 tabelas** representando o domínio de uma academia de pequeno porte:
